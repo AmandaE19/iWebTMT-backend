@@ -1,11 +1,11 @@
-const express = require('express');
+require('dotenv').config()
+
+const express = require("express");
 const app = express()
 const cors = require("cors");
 const admin = require("firebase-admin");
-require('dotenv').config()
-// const serviceAccount = require("./credentials.json");
 
-serviceAccount = {
+const serviceAccount = {
     "type": "service_account",
     "project_id": process.env.PROJECT_ID,
     "private_key_id": process.env.PRIVATE_KEY_ID,
@@ -23,8 +23,8 @@ admin.initializeApp({
     credential: admin.credential.cert(serviceAccount)
 });
 
-app.use(express.json());
 app.use(cors());
+app.use(express.json());
 
 const db = admin.firestore();
 
@@ -134,29 +134,4 @@ app.delete('/delete_comment/:commentCode/:userCode', async (req, res) => {
     }
 })
 
-// //Para alterar informações do usuário do firebase
-// app.put('/update_user', async (req, res) => {
-//     const codUser = req.body.codUser;
-//     try {
-//         await db.collection('user').doc(codUser).update({
-//             name: req.body.name,
-//             email: req.body.email
-//         });
-//         res.send('updated')
-//     } catch (err) {
-//         console.log(err)
-//     }
-// })
-
-// //Para deletar um usuário do firebase
-// app.delete('/delete_user/:codUser', async (req, res) => {
-//     const codUser = req.params.codUser;
-//     try {
-//         await db.collection('user').doc(codUser).delete()
-//         res.send('deleted')
-//     } catch (err) {
-//         console.log(err)
-//     }
-// })
-
-app.listen(process.env.PORT || 8000, () => {console.log("running")});
+app.listen(process.env.PORT || 8000, () => console.log("running"));
