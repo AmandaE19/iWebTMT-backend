@@ -159,4 +159,4 @@ app.delete('/delete_comment/:commentCode/:userCode', async (req, res) => {
 //     }
 // })
 
-app.listen(process.env.PORT || 8000, console.log("running"));
+app.listen(process.env.PORT || 8000, () => {console.log("running")});
